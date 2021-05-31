@@ -30,18 +30,18 @@ namespace AsteroideOficina
             var dt = (float)gameTime.ElapsedGameTime.TotalSeconds; //16ms
 
             var keys = Keyboard.GetState().GetPressedKeys().ToList();
-
+            
             if (keys.Contains(Keys.Up))
-                Inercia -= Direcao * dt * 10;
+                Inercia -= Direcao * 10;
+
+            if (keys.Contains(Keys.Down))
+                Inercia += Direcao * 5;
 
             if (keys.Contains(Keys.Right))
                 Direcao = Direcao.Rotate(-0.1f);
 
             if (keys.Contains(Keys.Left))
                 Direcao = Direcao.Rotate(0.1f);
-
-            //if (keys.Contains(Keys.Down))
-            //    Inercia += Vector2.UnitX * dt;
 
             if (Posicao.X < 0)
                 Posicao = new Vector2(Game.Window.ClientBounds.Width - 1, Posicao.Y);
@@ -55,7 +55,7 @@ namespace AsteroideOficina
             if (Posicao.Y > Game.Window.ClientBounds.Height)
                 Posicao = new Vector2(Posicao.X, 0);
 
-            Posicao += Inercia;
+            Posicao += Inercia * dt;
 
             base.Update(gameTime);
         }
