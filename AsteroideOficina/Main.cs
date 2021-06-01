@@ -1,12 +1,17 @@
 ﻿using AsteroideOficina.Engine;
+using AsteroideOficina.Entidades;
+using AsteroideOficina.Geradores;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Input.Touch;
 
 namespace AsteroideOficina
 {
     public class Main : Game
     {
+        public GeradorMeteoros Gerador { get; set; }
+
         public Main()
         {
             Globals.Graphics = new GraphicsDeviceManager(this);
@@ -18,9 +23,12 @@ namespace AsteroideOficina
         {
             // TODO: Add your initialization logic here
 
-            new Player(this);
-
             base.Initialize();
+
+            Globals.Player = new Player(this);
+            Gerador = new GeradorMeteoros(this);
+
+            Gerador.Gerar(10);
         }
 
         protected override void LoadContent()
@@ -35,7 +43,7 @@ namespace AsteroideOficina
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            // TODO: Add your update logic here
+            
 
             base.Update(gameTime);
         }
