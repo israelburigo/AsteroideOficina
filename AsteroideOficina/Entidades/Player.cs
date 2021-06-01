@@ -35,10 +35,10 @@ namespace AsteroideOficina
             var keys = Keyboard.GetState().GetPressedKeys().ToList();
 
             if (keys.Contains(Keys.Up))
-                Inercia += Direcao * 10;
+                Inercia -= Direcao * 10;
 
             if (keys.Contains(Keys.Down))
-                Inercia -= Direcao * 5;
+                Inercia += Direcao * 5;
 
             if (keys.Contains(Keys.Right))
                 Direcao = Direcao.Rotate(-0.1f);
@@ -64,9 +64,9 @@ namespace AsteroideOficina
 
             Colisao = new List<Vector2>
             {
-                new Vector2(Posicao.X, Posicao.Y + Textura.Height/2).Rotate(Direcao.Angulo(), Posicao),
-                new Vector2(Posicao.X - Textura.Width/2, Posicao.Y - Textura.Height/2).Rotate(Direcao.Angulo(), Posicao),
-                new Vector2(Posicao.X + Textura.Width/2, Posicao.Y - Textura.Height/2).Rotate(Direcao.Angulo(), Posicao),
+                new Vector2(Posicao.X, Posicao.Y - Textura.Height/2).Rotate(Direcao.Angulo(), Posicao),
+                new Vector2(Posicao.X - Textura.Width/2, Posicao.Y + Textura.Height/2).Rotate(Direcao.Angulo(), Posicao),
+                new Vector2(Posicao.X + Textura.Width/2, Posicao.Y + Textura.Height/2).Rotate(Direcao.Angulo(), Posicao),
                 Posicao
             };
 
@@ -88,7 +88,7 @@ namespace AsteroideOficina
 
         public override void Draw(GameTime gameTime)
         {
-            Globals.SpriteBatch.Draw(Textura, Posicao, null, Color.White, -Direcao.Angulo(), new Vector2(Textura.Width / 2, Textura.Width / 2), 1f, SpriteEffects.FlipVertically, 0);
+            Globals.SpriteBatch.Draw(Textura, Posicao, null, Color.White, -Direcao.Angulo(), new Vector2(Textura.Width / 2, Textura.Width / 2), 1f, SpriteEffects.None, 0);
 
             Colisao.ForEach(p =>
             {

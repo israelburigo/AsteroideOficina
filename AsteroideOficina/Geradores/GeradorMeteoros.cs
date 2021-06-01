@@ -37,13 +37,13 @@ namespace AsteroideOficina.Geradores
 
         private void Gerar()
         {
-            var rot = new MinMax(0.001f, 0.05f).Random();
-            var vel = new MinMax(10f, 100f).Random();
+            var rot = new MinMax(0.1f, 1f).Random();
+            var vel = new MinMax(1f, 50f).Random();
 
             var bordaInfSup = new MinMax(0, Game.Window.ClientBounds.Width).RandomInt();
             var bordaEsqDir = new MinMax(0, Game.Window.ClientBounds.Height).RandomInt();
 
-            var cantos = new MinMax(0, 3).RandomInt();
+            var cantos = new MinMax(0, 3).RandomRound();
 
             Vector2 pos;
             switch (cantos)
@@ -56,23 +56,23 @@ namespace AsteroideOficina.Geradores
             }
 
             var values = Enum.GetValues(typeof(EnumTipo));
-            var index = new MinMax(0, values.Length - 1).RandomInt();
+            var index = new MinMax(0, values.Length).RandomInt();
             new Meteoro(Game, (EnumTipo)values.GetValue(index))
             {
                 Posicao = new Vector2(pos.X, pos.Y),
                 Rotacao = rot,
                 Velocidade = vel,
-                Direcao = GeradorDirecao(pos, Globals.Player.Posicao)
+                Inercia = GeradorInercia(pos, Globals.Player.Posicao)
             };
         }
 
-        private Vector2 GeradorDirecao(Vector2 pos, Vector2 plPos)
+        private Vector2 GeradorInercia(Vector2 pos, Vector2 plPos)
         {
             var dx = plPos.X - pos.X;
             var dy = plPos.Y - pos.Y;
-            var dir = new Vector2(dx, dy);
-            dir.Normalize();
-            return dir;
+            var ine = new Vector2(dx, dy);
+            ine.Normalize();
+            return ine;
         }
     }
 }

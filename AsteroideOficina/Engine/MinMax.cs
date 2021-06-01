@@ -24,5 +24,10 @@ namespace AsteroideOficina.Engine
         {
             return (int)Random();
         }
+
+        public int RandomRound()
+        {
+            return (int)MathF.Round(Random());
+        }
     }
 }
