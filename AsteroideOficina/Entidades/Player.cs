@@ -11,7 +11,7 @@ using AsteroideOficina.Entidades;
 
 namespace AsteroideOficina
 {
-    public class Player : DrawableGameComponent
+    public class Player : DrawableGameComponent, IPlayer
     {
         public Texture2D Textura { get; set; }
         public Vector2 Posicao { get; set; }
@@ -77,10 +77,9 @@ namespace AsteroideOficina
                     var dist = Vector2.Distance(m.Posicao, col);
                     if (dist < m.Raio)
                     {
-                        Visible = false;
+                        Enabled = false;
                     }
                 }
-
             }
 
             base.Update(gameTime);
@@ -90,10 +89,10 @@ namespace AsteroideOficina
         {
             Globals.SpriteBatch.Draw(Textura, Posicao, null, Color.White, -Direcao.Angulo(), new Vector2(Textura.Width / 2, Textura.Width / 2), 1f, SpriteEffects.None, 0);
 
-            Colisao.ForEach(p =>
-            {
-                Globals.SpriteBatch.DrawPoint(p, 3, Color.Red);
-            });
+            //Colisao.ForEach(p =>
+            //{
+            //    Globals.SpriteBatch.DrawPoint(p, 3, Color.Red);
+            //});
         }
     }
 }

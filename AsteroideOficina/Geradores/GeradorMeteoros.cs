@@ -38,7 +38,7 @@ namespace AsteroideOficina.Geradores
         private void Gerar()
         {
             var rot = new MinMax(0.1f, 1f).Random();
-            var vel = new MinMax(1f, 50f).Random();
+            var vel = new MinMax(10f, 50f).Random();
 
             var bordaInfSup = new MinMax(0, Game.Window.ClientBounds.Width).RandomInt();
             var bordaEsqDir = new MinMax(0, Game.Window.ClientBounds.Height).RandomInt();
@@ -56,13 +56,13 @@ namespace AsteroideOficina.Geradores
             }
 
             var values = Enum.GetValues(typeof(EnumTipo));
-            var index = new MinMax(0, values.Length).RandomInt();
+            var index = new MinMax(0, values.Length - 1).RandomRound();
             new Meteoro(Game, (EnumTipo)values.GetValue(index))
             {
                 Posicao = new Vector2(pos.X, pos.Y),
                 Rotacao = rot,
                 Velocidade = vel,
-                Inercia = GeradorInercia(pos, Globals.Player.Posicao)
+                Inercia = GeradorInercia(pos, Globals.GetPlayer<Player>().Posicao)
             };
         }
 

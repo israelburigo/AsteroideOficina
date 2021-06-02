@@ -11,6 +11,11 @@ namespace AsteroideOficina.Engine
         public static GraphicsDeviceManager Graphics;
         public static SpriteBatch SpriteBatch;
         public static Random Random = new Random();
-        public static Player Player;
+        public static IPlayer Player;
+
+        public static T GetPlayer<T>()
+        {
+            return (T)Player;
+        }
     }
 }

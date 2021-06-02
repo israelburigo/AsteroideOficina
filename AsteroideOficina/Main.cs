@@ -28,6 +28,10 @@ namespace AsteroideOficina
             Globals.Player = new Player(this);
             Gerador = new GeradorMeteoros(this);
 
+            Globals.Graphics.PreferredBackBufferWidth = 1024;
+            Globals.Graphics.PreferredBackBufferHeight = 768;
+            Globals.Graphics.ApplyChanges();
+
             Gerador.Gerar(10);
         }
 
