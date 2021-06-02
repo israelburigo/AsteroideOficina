@@ -19,14 +19,14 @@ namespace AsteroideOficina.Entidades
     {
         public Texture2D Textura { get; set; }
         public Vector2 Posicao { get; set; }
-        public Vector2 Direcao { get; set; } = Vector2.One;
         public float Rotacao { get; set; }
         public float Velocidade { get; set; }
         public Vector2 Inercia { get; set; }
+        private Vector2 _direcao = Vector2.One;
 
         public float Raio { get { return Textura.Width / 2; } }
 
-        public Meteoro(Game game, EnumTipo tipo) 
+        public Meteoro(Game game, EnumTipo tipo)
             : base(game)
         {
             game.Components.Add(this);
@@ -41,10 +41,16 @@ namespace AsteroideOficina.Entidades
                 Textura = game.Content.Load<Texture2D>("2d/meteorinho");
         }
 
+        public override void Initialize()
+        {
+            base.Initialize();
+
+        }
+
         public override void Update(GameTime gameTime)
         {
             var dt = (float)gameTime.ElapsedGameTime.TotalSeconds;
-            Posicao += Inercia * dt * Velocidade;
+            Posicao += Inercia * Velocidade * dt;
 
             if (Posicao.X < 0)
                 Posicao = new Vector2(Game.Window.ClientBounds.Width - 1, Posicao.Y);
@@ -58,12 +64,12 @@ namespace AsteroideOficina.Entidades
             if (Posicao.Y > Game.Window.ClientBounds.Height)
                 Posicao = new Vector2(Posicao.X, 0);
 
-            Direcao = Direcao.Rotate(MathHelper.ToRadians(Rotacao));
+            _direcao = _direcao.Rotate(MathHelper.ToRadians(Rotacao));
         }
 
         public override void Draw(GameTime gameTime)
         {
-            Globals.SpriteBatch.Draw(Textura, Posicao, null, Color.White, Direcao.Angulo(), new Vector2(Textura.Width/2, Textura.Height/2), 1f, SpriteEffects.None, 0);
+            Globals.SpriteBatch.Draw(Textura, Posicao, null, Color.White, -_direcao.Angulo(), new Vector2(Textura.Width / 2, Textura.Height / 2), 1f, SpriteEffects.None, 0);
         }
     }
 }

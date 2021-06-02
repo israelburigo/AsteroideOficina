@@ -77,7 +77,7 @@ namespace AsteroideOficina
                     var dist = Vector2.Distance(m.Posicao, col);
                     if (dist < m.Raio)
                     {
-                        Enabled = false;
+                        Visible = false;
                     }
                 }
             }
@@ -89,10 +89,10 @@ namespace AsteroideOficina
         {
             Globals.SpriteBatch.Draw(Textura, Posicao, null, Color.White, -Direcao.Angulo(), new Vector2(Textura.Width / 2, Textura.Width / 2), 1f, SpriteEffects.None, 0);
 
-            //Colisao.ForEach(p =>
-            //{
-            //    Globals.SpriteBatch.DrawPoint(p, 3, Color.Red);
-            //});
+            Colisao.ForEach(p =>
+            {
+                Globals.SpriteBatch.DrawPoint(p, 3, Color.Red);
+            });
         }
     }
 }
