@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
+using System;
 
 namespace AsteroideOficina
 {
@@ -25,14 +26,12 @@ namespace AsteroideOficina
 
             base.Initialize();
 
-            Globals.Player = new Player(this);
-            Gerador = new GeradorMeteoros(this);
-
             Globals.Graphics.PreferredBackBufferWidth = 1024;
             Globals.Graphics.PreferredBackBufferHeight = 768;
+            
             Globals.Graphics.ApplyChanges();
 
-            Gerador.Gerar(10);
+            IniciarJogo();
         }
 
         protected override void LoadContent()
@@ -40,6 +39,21 @@ namespace AsteroideOficina
             Globals.SpriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
+        }
+
+        internal void IniciarJogo()
+        {
+            Components.Clear();
+
+            Gerador = new GeradorMeteoros(this);
+            new GUI.Gui(this);
+
+            var pl = new Player(this);
+            pl.Enabled = true;
+            pl.Visible = true;
+            Globals.Player = pl;
+
+            Gerador.Gerar(10);
         }
 
         protected override void Update(GameTime gameTime)

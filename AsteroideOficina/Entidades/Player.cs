@@ -18,6 +18,9 @@ namespace AsteroideOficina
         public Vector2 Inercia { get; set; }
         public Vector2 Direcao { get; set; }
         public List<Vector2> Colisao { get; set; } = new List<Vector2>();
+        private float _tempoTiro = 0f;
+
+        public int Pontos { get; set; }
 
         public Player(Game game) : base(game)
         {
@@ -26,6 +29,9 @@ namespace AsteroideOficina
             Textura = game.Content.Load<Texture2D>("2d/player");
             Posicao = new Vector2(Game.Window.ClientBounds.Width / 2, Game.Window.ClientBounds.Height / 2);
             Direcao = new Vector2(1f, 0f);
+
+            Enabled = false;
+            Visible = false;
         }
 
         public override void Update(GameTime gameTime)
@@ -70,6 +76,12 @@ namespace AsteroideOficina
                 Posicao
             };
 
+            if (keys.Contains(Keys.Space))
+                Atira(dt);
+
+            if (!keys.Contains(Keys.Space))
+                _tempoTiro = 0;
+
             foreach (var m in meteoros)
             {
                 foreach (var col in Colisao)
@@ -78,11 +90,30 @@ namespace AsteroideOficina
                     if (dist < m.Raio)
                     {
                         Visible = false;
+                        Enabled = false;
+                        break;
                     }
                 }
             }
 
             base.Update(gameTime);
+        }
+
+        private void Atira(float dt)
+        {
+            if ((_tempoTiro -= dt) > 0)
+                return;
+
+            _tempoTiro = 0.5f;
+
+            var ponto = Colisao.First();
+
+            new Tiro(Game)
+            {
+                Posicao = new Vector2(ponto.X, ponto.Y),
+                Direcao = new Vector2(Direcao.X, Direcao.Y),
+                Velocidade = 500f
+            };
         }
 
         public override void Draw(GameTime gameTime)

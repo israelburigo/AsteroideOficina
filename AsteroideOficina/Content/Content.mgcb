@@ -61,7 +61,7 @@
 /processorParam:TextureFormat=Color
 /build:2d/player.png
 
-#begin 2d/player.png
+#begin 2d/tiro.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -71,5 +71,12 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:2d/player.png
+/build:2d/tiro.png
+
+#begin fonts/arial20.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/arial20.spritefont
 
