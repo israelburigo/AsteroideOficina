@@ -22,7 +22,9 @@ namespace AsteroideOficina.GUI
 
         public override void Update(GameTime gameTime)
         {
-            if (Globals.GetPlayer<Player>().Enabled)
+            var pl = (Game as Main).Player;
+
+            if (pl.Enabled)
             {
                 Visible = false;
                 return;
@@ -46,10 +48,10 @@ namespace AsteroideOficina.GUI
         {
             var msg = "Press ENTER";
             var size = Fonte.MeasureString(msg);
-            var pos = new Vector2(Game.Window.ClientBounds.Width / 2 - size.X/2, Game.Window.ClientBounds.Height / 2 - size.Y/2);
+            var pos = new Vector2(Game.Window.ClientBounds.Width / 2 - size.X / 2, Game.Window.ClientBounds.Height / 2 - size.Y / 2);
             Globals.SpriteBatch.DrawString(Fonte, msg, pos, Color.White);
         }
 
-        
+
     }
 }

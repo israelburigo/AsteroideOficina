@@ -5,13 +5,13 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
-using System;
 
 namespace AsteroideOficina
 {
     public class Main : Game
     {
         public GeradorMeteoros Gerador { get; set; }
+        public Player Player { get; set; }
 
         public Main()
         {
@@ -48,10 +48,9 @@ namespace AsteroideOficina
             Gerador = new GeradorMeteoros(this);
             new GUI.Gui(this);
 
-            var pl = new Player(this);
-            pl.Enabled = true;
-            pl.Visible = true;
-            Globals.Player = pl;
+            Player = new Player(this);
+            Player.Enabled = true;
+            Player.Visible = true;            
 
             Gerador.Gerar(10);
         }

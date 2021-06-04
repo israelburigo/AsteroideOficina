@@ -46,7 +46,9 @@ namespace AsteroideOficina.Entidades
                 var dist = Vector2.Distance(m.Posicao, Posicao);
                 if (dist < m.Raio)
                 {
-                    Globals.GetPlayer<Player>().Pontos++;
+                    var pl = (Game as Main).Player;
+
+                    pl.Pontos++;
                     Game.Components.Remove(this);
                     m.Explode();
                     break;

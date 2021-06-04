@@ -22,7 +22,9 @@ namespace AsteroideOficina.GUI
 
         public override void Draw(GameTime gameTime)
         {
-            var pontos = $"Pontos:{Globals.GetPlayer<Player>().Pontos}";
+            var pl = (Game as Main).Player;
+
+            var pontos = $"Pontos:{pl.Pontos}";
             Globals.SpriteBatch.DrawString(Fonte, pontos, new Vector2(10, 10), Color.White);
         }
 

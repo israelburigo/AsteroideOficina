@@ -20,7 +20,9 @@ namespace AsteroideOficina.Geradores
 
         public override void Update(GameTime gameTime)
         {
-            if(!Globals.GetPlayer<Player>().Enabled)
+            var pl = (Game as Main).Player;
+
+            if (!pl.Enabled)
                 return;
 
             var dt = (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -78,7 +80,9 @@ namespace AsteroideOficina.Geradores
             var index = new MinMax(0, values.Length - 1).RandomRound();
             var tipoM = (EnumTipo)values.GetValue(index);
 
-            var inercia = GeradorInercia(pos, Globals.GetPlayer<Player>().Posicao);
+            var pl = (Game as Main).Player;
+
+            var inercia = GeradorInercia(pos, pl.Posicao);
             if (ang.HasValue)
                 inercia = inercia.Rotate(MathHelper.ToRadians(ang.Value));
 

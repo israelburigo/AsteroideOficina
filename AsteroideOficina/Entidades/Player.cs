@@ -8,6 +8,8 @@ using System.Linq;
 using System.Text;
 using AsteroideOficina.Engine.Extension;
 using AsteroideOficina.Entidades;
+using Microsoft.Xna.Framework.Media;
+using Microsoft.Xna.Framework.Audio;
 
 namespace AsteroideOficina
 {
@@ -29,9 +31,6 @@ namespace AsteroideOficina
             Textura = game.Content.Load<Texture2D>("2d/player");
             Posicao = new Vector2(Game.Window.ClientBounds.Width / 2, Game.Window.ClientBounds.Height / 2);
             Direcao = new Vector2(1f, 0f);
-
-            Enabled = false;
-            Visible = false;
         }
 
         public override void Update(GameTime gameTime)
@@ -105,6 +104,7 @@ namespace AsteroideOficina
                 return;
 
             _tempoTiro = 0.5f;
+            
 
             var ponto = Colisao.First();
 
