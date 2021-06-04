@@ -20,9 +20,8 @@ namespace AsteroideOficina.Geradores
 
         public override void Update(GameTime gameTime)
         {
-            var pl = (Game as Main).Player;
-
-            if (!pl.Enabled)
+            var game = (Game as Main);
+            if (!game.Comecou)
                 return;
 
             var dt = (float)gameTime.ElapsedGameTime.TotalSeconds;

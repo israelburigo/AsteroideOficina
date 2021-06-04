@@ -1,6 +1,7 @@
 ﻿using AsteroideOficina.Engine;
 using AsteroideOficina.Engine.Extension;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -23,6 +24,7 @@ namespace AsteroideOficina.Entidades
         public float Velocidade { get; set; }
         public Vector2 Inercia { get; set; }
         private Vector2 _direcao = Vector2.One;
+        public SoundEffect Som { get; set; }
 
         public EnumTipo Tipo { get; set; }
 
@@ -31,6 +33,7 @@ namespace AsteroideOficina.Entidades
         public Meteoro(Game game, EnumTipo tipo)
             : base(game)
         {
+            Som = game.Content.Load<SoundEffect>("sounds/explosaoMeteroro");
             game.Components.Add(this);
             Tipo = tipo;
 
@@ -42,7 +45,7 @@ namespace AsteroideOficina.Entidades
 
             if (tipo == EnumTipo.Meteorinho)
                 Textura = game.Content.Load<Texture2D>("2d/meteorinho");
-        }        
+        }
 
         public override void Update(GameTime gameTime)
         {
@@ -66,12 +69,23 @@ namespace AsteroideOficina.Entidades
 
         internal void Explode()
         {
+            Som.Play();
+            new Particulas
+            {
+                Angulo = new MinMax(0, 359),
+                Posicao = Posicao,
+                TempoDeVida = new MinMax(0.2f, 1f),
+                Velocidade = new MinMax(10f, 100f),
+                Textura = Game.Content.Load<Texture2D>("2d/tiro"),
+                Cor = Color.White
+            }.Start(Game, 10);
+
             Game.Components.Remove(this);
             switch (Tipo)
             {
                 case EnumTipo.Meteorao: (Game as Main).Gerador.Gerar(2, EnumTipo.Meteoro, Posicao); break;
                 case EnumTipo.Meteoro: (Game as Main).Gerador.Gerar(2, EnumTipo.Meteorinho, Posicao); break;
-                default:break;
+                default: break;
             }
 
         }

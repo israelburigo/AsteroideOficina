@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
+using System.Linq;
 
 namespace AsteroideOficina
 {
@@ -12,6 +13,7 @@ namespace AsteroideOficina
     {
         public GeradorMeteoros Gerador { get; set; }
         public Player Player { get; set; }
+        public bool Comecou { get; set; }
 
         public Main()
         {
@@ -28,10 +30,14 @@ namespace AsteroideOficina
 
             Globals.Graphics.PreferredBackBufferWidth = 1024;
             Globals.Graphics.PreferredBackBufferHeight = 768;
-            
+
             Globals.Graphics.ApplyChanges();
 
-            IniciarJogo();
+            Components.Clear();
+
+            Gerador = new GeradorMeteoros(this);
+            new GUI.Gui(this);
+            Player = new Player(this);
         }
 
         protected override void LoadContent()
@@ -43,15 +49,11 @@ namespace AsteroideOficina
 
         internal void IniciarJogo()
         {
-            Components.Clear();
+            foreach (var m in Components.OfType<Meteoro>().ToList())
+                Components.Remove(m);
 
-            Gerador = new GeradorMeteoros(this);
-            new GUI.Gui(this);
-
-            Player = new Player(this);
-            Player.Enabled = true;
-            Player.Visible = true;            
-
+            Comecou = true;
+            Player.Iniciar();
             Gerador.Gerar(10);
         }
 

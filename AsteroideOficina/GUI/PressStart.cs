@@ -22,13 +22,9 @@ namespace AsteroideOficina.GUI
 
         public override void Update(GameTime gameTime)
         {
-            var pl = (Game as Main).Player;
-
-            if (pl.Enabled)
-            {
-                Visible = false;
+            var game = (Game as Main);
+            if (game.Comecou)
                 return;
-            }
 
             var dt = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
@@ -46,6 +42,10 @@ namespace AsteroideOficina.GUI
 
         public override void Draw(GameTime gameTime)
         {
+            var game = (Game as Main);
+            if (game.Comecou)
+                return;
+
             var msg = "Press ENTER";
             var size = Fonte.MeasureString(msg);
             var pos = new Vector2(Game.Window.ClientBounds.Width / 2 - size.X / 2, Game.Window.ClientBounds.Height / 2 - size.Y / 2);

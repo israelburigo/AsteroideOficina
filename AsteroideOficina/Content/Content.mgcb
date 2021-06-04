@@ -49,6 +49,18 @@
 /processorParam:TextureFormat=Color
 /build:2d/meteoro.png
 
+#begin 2d/particula.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:2d/particula.png
+
 #begin 2d/player.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -79,4 +91,22 @@
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Compressed
 /build:fonts/arial20.spritefont
+
+#begin sounds/explosaoMeteroro.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/explosaoMeteroro.wav
+
+#begin sounds/explosaoNave.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/explosaoNave.wav
+
+#begin sounds/tiro.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/tiro.wav
 
